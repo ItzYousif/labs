@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--<users xmlns="http://www.xmllabs.com/labs"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.xmllabs.com/labs users.xsd"> -->
+<users>
+    <user>
+        <ID>608493</ID>
+        <name>Alice Ming</name>
+        <email>alice.ma@example.com</email>
+        <password>Helloworld222</password>
+        <DOB>03-03-0003</DOB>
+    </user>
+</users>

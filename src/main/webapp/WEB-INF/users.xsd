@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<xs:schema version="1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.xmllabs.com/labs"
+           xmlns="http://www.xmllabs.com/labs"
+           elementFormDefault="qualified">
+    
+
+    
+    <xs:simpleType name="nameFormat">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="([A-Z][a-z]+[\s])+[A-Z][a-z]*" />
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:simpleType name="emailFormat">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-zA-Z0-9._%+-].[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" />
+        </xs:restriction>
+    </xs:simpleType> 
+    
+    <xs:simpleType name="passwordFormat">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[A-Z][a-z]{8,}\d{2,}" />
+        </xs:restriction>
+    </xs:simpleType> 
+    
+    <xs:simpleType name="dobFormat">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\d{2}-\d{2}-\d{4}" />
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:element name="users">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="user" maxOccurs="unbounded" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element type="xs:int" name="ID"/> 
+                            <xs:element type="nameFormat" name="name"/>                   
+                            <xs:element type="emailFormat" name="email"/>
+                            <xs:element type="passwordFormat" name="password"/>
+                            <xs:element type="dobFormat" name="DOB"/>                          
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

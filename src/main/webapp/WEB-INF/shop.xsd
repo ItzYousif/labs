@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<xs:schema version="1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.xmllabs.com/labs"
+           xmlns="http://www.xmllabs.com/labs"
+           elementFormDefault="qualified">
+    
+    <xs:simpleType name="ratingFormat">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="1" />
+            <xs:maxInclusive value="10"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:element name="shop">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element type="nameFormat" name="name"/>                
+                <xs:element name="movies">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="movie">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element type="nameFormat" name="title"/>
+                                        <xs:element type="xs:int" name="cdset"/>
+                                        <xs:element type="xs:double" name="price"/>
+                                        <xs:element type="ratingFormat" name="rating"/>                   
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>                     
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>                     
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    
+    
+    
+
+</xs:schema>
