@@ -30,24 +30,46 @@
         </div>
         <div style="align-content: center">
             <div>
+                <%!
+                    User user;
+                %>
+                <% String filename = application.getRealPath("/WEB-INF/users.xml");%>
+                <jsp:useBean id="userDAO" class="com.model.dao.UserDAO" scope="application">
+                    <jsp:setProperty name="userDAO" property="fileName" value="<%=filename%>"/>
+                </jsp:useBean>
                 <%
-                    String email = request.getParameter("email");
-                    String password = request.getParameter("password");
-                    Users users = (Users) session.getAttribute("users");
 
-                    User user = users.user(email, password);
                     String emailRegEx = "([a-zA-Z]+)[._-]([a-zA-Z]+)@example.com";
                     String passRegEx = "[A-Z][a-z]{5,15}\\d{1,3}";
 
-                    if (!email.matches(emailRegEx)) {
-                        session.setAttribute("emailError", "Incorrect email format");
-                        response.sendRedirect("login.jsp");
-                    } else if (!password.matches(passRegEx)) {
-                        session.setAttribute("passError", "Incorrect password format");
-                        response.sendRedirect("login.jsp");
-                    } else { %>          
+                    String submitted = request.getParameter("submitted");
+
+                    if (submitted != null && submitted.equals("submitted")) {
+                        int ID = Integer.parseInt(request.getParameter("ID"));
+                        String name = request.getParameter("name");
+                        String email = request.getParameter("email");
+                        String password = request.getParameter("password");
+                        String dob = request.getParameter("dob");
+                        user = (User) session.getAttribute("user");
+                        user.update(ID, name, email, password, dob);
+
+                        Users users = userDAO.getUsers();
+
+                        userDAO.update(users, user);
+
+                        session.setAttribute("user", user);
+                        if (!email.matches(emailRegEx)) {
+                            session.setAttribute("emailError", "Incorrect email format");
+                            response.sendRedirect("login.jsp");
+                        } else if (!password.matches(passRegEx)) {
+                            session.setAttribute("passError", "Incorrect password format");
+                            response.sendRedirect("login.jsp");
+                        } else { %>          
                 <p> Welcome <% user.getName(); %></p>
-                <% }%>
+                <% }
+                    } else {
+                        user = (User) session.getAttribute("user");
+                    }%>
             </div>
         </div>
         <footer>

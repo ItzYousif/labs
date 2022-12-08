@@ -28,13 +28,13 @@
             </nav>
         </div>
         <div style="margin: auto;">
-            <%  String exist = (String) session.getAttribute("error");
+            <%
                 String emailError = (String) session.getAttribute("emailError");
                 String passError = (String) session.getAttribute("passError");
             %>
             <form method="POST" action="loginAction.jsp">
                 <table class="table" >
-                    <caption>Sign In <span class="message"><%= (exist != null) ? exist : ""%></span></caption>
+                    <caption>Sign In</caption>
                     <tr><td>Email: </td><td><input type="text" name="email" placeholder="<%= (emailError != null) ? emailError : "Enter your email"%>" /></td></tr>
                     <tr><td>Password: </td><td><input type="password" name="password" placeholder="<%= (passError != null) ? passError : "Enter your password"%>" /></td></tr>
                     <tr style="text-align: right">
