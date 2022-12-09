@@ -31,10 +31,12 @@
             <%
                 String emailError = (String) session.getAttribute("emailError");
                 String passError = (String) session.getAttribute("passError");
+                String exist = (String) session.getAttribute("error");
             %>
             <form method="POST" action="loginAction.jsp">
                 <table class="table" >
-                    <caption>Sign In</caption>
+
+                    <caption>Sign In <span class="message"><%= (exist != null) ? exist : ""%></caption>
                     <tr><td>Email: </td><td><input type="text" name="email" placeholder="<%= (emailError != null) ? emailError : "Enter your email"%>" /></td></tr>
                     <tr><td>Password: </td><td><input type="password" name="password" placeholder="<%= (passError != null) ? passError : "Enter your password"%>" /></td></tr>
                     <tr style="text-align: right">
@@ -51,8 +53,10 @@
         </div>
         <% emailError = "";
             passError = "";
+            exist ="";
             session.setAttribute("emailError", emailError);
             session.setAttribute("passError", passError);
+            session.setAttribute("exist", exist);
         %>
         <footer>
             <div id="displayTime">

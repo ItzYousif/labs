@@ -68,8 +68,9 @@
                     <tr>
                         <td> </td>
                         <td>
-                            <a class="button" href="main.jsp">Main</a>
-                            <input class="button" type="submit" value="Update" />
+                            <a class="button" style="margin: 5%" href="main.jsp">Main</a> 
+                            <input class="button" style="margin: 5%" type="submit" value="Update" /> 
+                            <a class="button" style="margin: 5%" href="delete.jsp">Delete My Account</a>
                         </td>
                     </tr>
                 </table>

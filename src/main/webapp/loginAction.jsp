@@ -43,32 +43,26 @@
                     String passRegEx = "[A-Z][a-z]{5,15}\\d{1,3}";
 
                     String submitted = request.getParameter("submitted");
+                    String email = request.getParameter("email");
+                    String password = request.getParameter("password");
 
-                    if (submitted != null && submitted.equals("submitted")) {
-                        int ID = Integer.parseInt(request.getParameter("ID"));
-                        String name = request.getParameter("name");
-                        String email = request.getParameter("email");
-                        String password = request.getParameter("password");
-                        String dob = request.getParameter("dob");
-                        user = (User) session.getAttribute("user");
-                        user.update(ID, name, email, password, dob);
-
+                    if (!email.matches(emailRegEx)) {
+                        session.setAttribute("emailError", "Incorrect email format");
+                        response.sendRedirect("login.jsp");
+                    } else if (!password.matches(passRegEx)) {
+                        session.setAttribute("passError", "Incorrect password format");
+                        response.sendRedirect("login.jsp");
+                    } else {
                         Users users = userDAO.getUsers();
 
-                        userDAO.update(users, user);
+                        User user = users.user(email, password);
 
-                        session.setAttribute("user", user);
-                        if (!email.matches(emailRegEx)) {
-                            session.setAttribute("emailError", "Incorrect email format");
+                        if (user != null) {
+                            session.setAttribute("user", user);
+                        } else {
+                            session.setAttribute("error", "User does not exist");
                             response.sendRedirect("login.jsp");
-                        } else if (!password.matches(passRegEx)) {
-                            session.setAttribute("passError", "Incorrect password format");
-                            response.sendRedirect("login.jsp");
-                        } else { %>          
-                <p> Welcome <% user.getName(); %></p>
-                <% }
-                    } else {
-                        user = (User) session.getAttribute("user");
+                        }
                     }%>
             </div>
         </div>
