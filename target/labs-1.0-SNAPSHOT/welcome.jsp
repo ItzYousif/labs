@@ -40,26 +40,32 @@
 
                 String emailRegEx = "([a-zA-Z]+)[._-]([a-zA-Z]+)@example.com";
                 String passRegEx = "[A-Z][a-z]{5,15}\\d{1,3}";
-
-                if (!email.matches(emailRegEx)) {
-                    session.setAttribute("emailError", "Incorrect email format");
+                if (!email.matches(emailRegEx) && (!password.matches(passRegEx))) {
+                    session.setAttribute("emailPassError", "Incorrect email & password format");
                     response.sendRedirect("register.jsp");
-                } else if (!password.matches(passRegEx)) {
-                    session.setAttribute("passError", "Incorrect password format");
-                    response.sendRedirect("register.jsp");
+                    
                 } else {
-                    User user = new User(name, email, password, dob);
-                    Users users = userDAO.getUsers();
 
-                    User userXML = users.user(user.getEmail());
-
-                    if (userXML != null) {
-                        session.setAttribute("error", "User already exists");
+                    if (!email.matches(emailRegEx)) {
+                        session.setAttribute("emailError", "Incorrect email format");
+                        response.sendRedirect("register.jsp");
+                    } else if (!password.matches(passRegEx)) {
+                        session.setAttribute("passError", "Incorrect password format");
                         response.sendRedirect("register.jsp");
                     } else {
-                        users.add(user);
-                        userDAO.save(users, filename);
-                        session.setAttribute("user", user);
+                        User user = new User(name, email, password, dob);
+                        Users users = userDAO.getUsers();
+
+                        User userXML = users.user(user.getEmail());
+
+                        if (userXML != null) {
+                            session.setAttribute("existError", "User already exists");
+                            response.sendRedirect("register.jsp");
+                        } else {
+                            users.add(user);
+                            userDAO.save(users, filename);
+                            session.setAttribute("user", user);
+                        }
                     }
                 }
             %>

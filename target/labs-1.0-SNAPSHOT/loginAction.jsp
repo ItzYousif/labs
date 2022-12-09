@@ -46,22 +46,29 @@
                     String email = request.getParameter("email");
                     String password = request.getParameter("password");
 
-                    if (!email.matches(emailRegEx)) {
-                        session.setAttribute("emailError", "Incorrect email format");
+                    if (!email.matches(emailRegEx) && (!password.matches(passRegEx))) {
+                        session.setAttribute("emailPassError", "Incorrect email & password format");
                         response.sendRedirect("login.jsp");
-                    } else if (!password.matches(passRegEx)) {
-                        session.setAttribute("passError", "Incorrect password format");
-                        response.sendRedirect("login.jsp");
+
                     } else {
-                        Users users = userDAO.getUsers();
 
-                        User user = users.user(email, password);
-
-                        if (user != null) {
-                            session.setAttribute("user", user);
-                        } else {
-                            session.setAttribute("error", "User does not exist");
+                        if (!email.matches(emailRegEx)) {
+                            session.setAttribute("emailError", "Incorrect email format");
                             response.sendRedirect("login.jsp");
+                        } else if (!password.matches(passRegEx)) {
+                            session.setAttribute("passError", "Incorrect password format");
+                            response.sendRedirect("login.jsp");
+                        } else {
+                            Users users = userDAO.getUsers();
+
+                            User user = users.user(email, password);
+
+                            if (user != null) {
+                                session.setAttribute("user", user);
+                            } else {
+                                session.setAttribute("error", "User does not exist");
+                                response.sendRedirect("login.jsp");
+                            }
                         }
                     }%>
             </div>
