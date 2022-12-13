@@ -32,22 +32,13 @@
             <%
                 String emailError = (String) session.getAttribute("emailError");
                 String passError = (String) session.getAttribute("passError");
-                String exist = (String) session.getAttribute("existError");
-                String emailPassError = (String) session.getAttribute("emailPassError");
             %>
             <form method="POST" action="welcome.jsp">
                 <table class="table" >
-                    <caption>Sign Up<br>
-                        <span class="message">
-                            <%= (exist != null) ? exist : ""%>
-                            <%= (emailPassError != null) ? emailPassError : ""%>
-                            <%= (emailError != null) ? emailError : ""%>
-                            <%= (passError != null) ? passError :""%>
-                    </caption>
-
+                    <caption>Sign Up</caption>
                     <tr><td>Name: </td><td><input type="text" name="name" placeholder="Enter your name" /></td></tr>
-                    <tr><td>Email: </td><td><input type="text" name="email" placeholder="Enter you email" /></td></tr>
-                    <tr><td>Password: </td><td><input type="password" name="password" placeholder="Enter your password" /></td></tr>
+                    <tr><td>Email: </td><td><input type="text" name="email" placeholder="<%= (emailError != null) ? emailError : "Enter your email"%>" /></td></tr>
+                    <tr><td>Password: </td><td><input type="password" name="password" placeholder="<%= (passError != null) ? passError : "Enter your password"%>" /></td></tr>
                     <tr><td>DOB: </td><td><input type="date" name="dob"/></td></tr>
                     <tr style="text-align: right">
                         <td>
@@ -62,12 +53,8 @@
         </div>
         <% emailError = "";
             passError = "";
-            emailPassError = "";
-            exist = "";
-            session.setAttribute("emailError", "");
-            session.setAttribute("passError", "");
-            session.setAttribute("emailPassError", "");
-            session.setAttribute("exist", "");
+            session.setAttribute("emailError", "Enter your email");
+            session.setAttribute("passError", "Enter you password");
         %>
         <footer>
             <div id="displayTime">

@@ -31,11 +31,7 @@
         </nav>
     </div>
     <div>
-        <% User user = (User) session.getAttribute("user");
-            Users users = userDAO.getUsers();
-            userDAO.update(users, user);
-            session.setAttribute("user", user);
-        %>
+        <% User user = (User) session.getAttribute("user");%>
         <table class="table">
 
             <caption>User Information</caption>
@@ -43,6 +39,11 @@
             <tr><td>Email: </td><td> <%= user.getEmail()%></td></tr>
             <tr><td>D.O.B.: </td><td> <%= user.getDOB()%></td></tr>
         </table>
+
+
+        <% Users users = userDAO.getUsers();
+            userDAO.update(users, user);
+            session.setAttribute("user", user);%>
 
     </div>
 

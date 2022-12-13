@@ -19,9 +19,9 @@ body{
     margin: auto;
     margin-top : 15%;
     width: 60%;  
-    border: 3px solid whitesmoke;
+    border: 3px solid green;
     padding: 25px;
-    background: url(navpic.jpg);
+    background-color: #1d1d1d;
     color: #ffff33;
     opacity: 0.8;
     text-align: center;

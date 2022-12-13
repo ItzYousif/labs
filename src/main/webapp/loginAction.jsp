@@ -30,47 +30,24 @@
         </div>
         <div style="align-content: center">
             <div>
-                <%!
-                    User user;
-                %>
-                <% String filename = application.getRealPath("/WEB-INF/users.xml");%>
-                <jsp:useBean id="userDAO" class="com.model.dao.UserDAO" scope="application">
-                    <jsp:setProperty name="userDAO" property="fileName" value="<%=filename%>"/>
-                </jsp:useBean>
                 <%
+                    String email = request.getParameter("email");
+                    String password = request.getParameter("password");
+                    Users users = (Users) session.getAttribute("users");
 
+                    User user = users.user(email, password);
                     String emailRegEx = "([a-zA-Z]+)[._-]([a-zA-Z]+)@example.com";
                     String passRegEx = "[A-Z][a-z]{5,15}\\d{1,3}";
 
-                    String submitted = request.getParameter("submitted");
-                    String email = request.getParameter("email");
-                    String password = request.getParameter("password");
-
-                    if (!email.matches(emailRegEx) && (!password.matches(passRegEx))) {
-                        session.setAttribute("emailPassError", "Incorrect email & password format");
+                    if (!email.matches(emailRegEx)) {
+                        session.setAttribute("emailError", "Incorrect email format");
                         response.sendRedirect("login.jsp");
-
-                    } else {
-
-                        if (!email.matches(emailRegEx)) {
-                            session.setAttribute("emailError", "Incorrect email format");
-                            response.sendRedirect("login.jsp");
-                        } else if (!password.matches(passRegEx)) {
-                            session.setAttribute("passError", "Incorrect password format");
-                            response.sendRedirect("login.jsp");
-                        } else {
-                            Users users = userDAO.getUsers();
-
-                            User user = users.user(email, password);
-
-                            if (user != null) {
-                                session.setAttribute("user", user);
-                            } else {
-                                session.setAttribute("error", "User does not exist");
-                                response.sendRedirect("login.jsp");
-                            }
-                        }
-                    }%>
+                    } else if (!password.matches(passRegEx)) {
+                        session.setAttribute("passError", "Incorrect password format");
+                        response.sendRedirect("login.jsp");
+                    } else { %>          
+                <p> Welcome <% user.getName(); %></p>
+                <% }%>
             </div>
         </div>
         <footer>
