@@ -47,12 +47,19 @@
                 String dob = request.getParameter("dob");
                 user = (User) session.getAttribute("user");
                 user.update(ID, name, email, password, dob);
-                
+
                 Users users = userDAO.getUsers();
                 userDAO.update(users, user);
                 session.setAttribute("user", user);
             } else {
-                user = (User) session.getAttribute("user");
+                String userViewEmail = request.getParameter("email");
+                Users users = userDAO.getUsers();
+                User userView = users.user(userViewEmail);
+                if (userView != null) {
+                    user = userView;
+                } else {
+                    user = (User) session.getAttribute("user");
+                }
             }
         %>
         <div style="margin: auto;">
@@ -68,8 +75,9 @@
                     <tr>
                         <td> </td>
                         <td>
-                            <a class="button" href="main.jsp">Main</a>
-                            <input class="button" type="submit" value="Update" />
+                            <a class="button" style="margin: 5%" href="main.jsp">Main</a> 
+                            <input class="button" style="margin: 5%" type="submit" value="Update" /> 
+                            <a class="button" style="margin: 5%" href="delete.jsp">Delete My Account</a>
                         </td>
                     </tr>
                 </table>

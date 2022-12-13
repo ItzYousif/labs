@@ -21,6 +21,7 @@
                 <div class="container-fluid">
                     <div class="navbar-header navbar-left" style="text-align: center">
                         <li>
+                            <a class="button" href="admin1.jsp">Admin</a>  &emsp;
                             <a class="button" href="register.jsp">register</a>&nbsp;
                             <a class="button" href="login.jsp">login</a>&nbsp;
                             <a class="button" href="strings.jsp">strings</a>
