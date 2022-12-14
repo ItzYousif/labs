@@ -8,11 +8,7 @@
                 <link href="css/users.css" rel="stylesheet" type="text/css"></link>
             </head>
             <body>
-                <div class="label">User List 
-                    <span class="center">
-                        <a class="button" href="index.jsp">Home</a>
-                    </span>
-                </div>
+
                 <xsl:apply-templates/>
             </body>
         </html>

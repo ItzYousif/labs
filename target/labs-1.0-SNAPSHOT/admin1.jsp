@@ -26,6 +26,11 @@
 
         </nav>
         <div class="table">
+            <%
+                session.invalidate();
+                request.setAttribute("email", null);
+                request.removeAttribute("email");
+            %>
 
             <% String filename = application.getRealPath("/WEB-INF/users.xml");%>
             <% String xslPath = application.getRealPath("/xsl/users.xsl");%>
