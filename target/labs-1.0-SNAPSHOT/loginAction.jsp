@@ -16,18 +16,6 @@
         <title>Login Action</title>
     </head>
     <body>
-        <div>
-            <nav>
-                <div class="container-fluid">
-                    <div class="navbar-header navbar-left" style="text-align: center">
-                        <li>
-                            <a class="button" href="logout.jsp">logout</a>
-                            <a class="button" href="main.jsp">main</a>
-                        </li>
-                    </div>
-                </div>
-            </nav>
-        </div>
         <div style="align-content: center">
             <div>
                 <%!
@@ -73,17 +61,5 @@
                     }%>
             </div>
         </div>
-        <footer>
-            <div id="displayTime">
-                <div class="clock">
-                    <span id="hours">00</span>
-                    <span>:</span>
-                    <span id="minutes">00</span>
-                    <span>:</span>
-                    <span id="seconds">00</span>
-                    <span id="session">AM</span>
-                </div>
-            </div>
-        </footer>
     </body>
 </html>

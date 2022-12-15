@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--<users xmlns="http://www.xmllabs.com/labs"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.xmllabs.com/labs users.xsd"> -->
+<admins>
+    <admin>
+        <ID>333333</ID>
+        <name>Yousif Alsabahi</name>
+        <email>me.me@example.com</email>
+        <password>Helloworld123</password>
+        <DOB>2000-20-20</DOB>
+    </admin>
+</admins>

@@ -26,23 +26,22 @@
 
         </nav>
         <div class="table">
-            <%
-                session.invalidate();
-                request.setAttribute("email", null);
-                request.removeAttribute("email");
-            %>
+        <%
+            session.invalidate();
+            request.setAttribute("email", null);
+            request.removeAttribute("email");
+        %>
+        <% String filename = application.getRealPath("/WEB-INF/users.xml");%>
+        <% String xslPath = application.getRealPath("/xsl/users.xsl");%>
+        <jsp:useBean id="userDAO" class="com.model.dao.UserDAO" scope="application">
+            <jsp:setProperty name="userDAO" property="fileName" value="<%=filename%>"/>
+        </jsp:useBean>
 
-            <% String filename = application.getRealPath("/WEB-INF/users.xml");%>
-            <% String xslPath = application.getRealPath("/xsl/users.xsl");%>
-            <jsp:useBean id="userDAO" class="com.model.dao.UserDAO" scope="application">
-                <jsp:setProperty name="userDAO" property="fileName" value="<%=filename%>"/>
-            </jsp:useBean>
-
-            <%
-                Users users = userDAO.getUsers();
-                XmlTransformer transformer = new XmlTransformer();
-                transformer.transform(xslPath, users, new StreamResult(out));
-            %>
+        <%
+            Users users = userDAO.getUsers();
+            XmlTransformer transformer = new XmlTransformer();
+            transformer.transform(xslPath, users, new StreamResult(out));
+        %>
         </div>
 
 

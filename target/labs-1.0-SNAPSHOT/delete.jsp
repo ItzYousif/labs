@@ -13,34 +13,52 @@
     <script type="text/javascript" src="JS/index.js" defer></script>
 </head>
 <body>
-    <% String filename = application.getRealPath("/WEB-INF/users.xml");%>
-    <jsp:useBean id="userDAO" class="com.model.dao.UserDAO" scope="application">
-        <jsp:setProperty name="userDAO" property="fileName" value="<%=filename%>"/>
-    </jsp:useBean>
     <div>
         <nav>
             <!-- <h1 class="homepage" style="text-align: left">Home page</h1> -->
             <div class="container-fluid">
                 <div class="navbar-header navbar-left" style="text-align: center">
                     <li>
-                        <a class="button" href="logout.jsp">logout</a>&nbsp;
                         <a class="button" href="account.jsp">account</a>
                     </li>
                 </div>
             </div>
         </nav>
     </div>
-    <div class="center"><p>Are you sure you want to delete your account?</p>
+
+
+    <%!
+        User user;
+    %>
+    <% String filename = application.getRealPath("/WEB-INF/users.xml");%>
+    <jsp:useBean id="userDAO" class="com.model.dao.UserDAO" scope="application">
+        <jsp:setProperty name="userDAO" property="fileName" value="<%=filename%>"/>
+    </jsp:useBean>
+    <div class="center">
         <li>
-            <a class="button" href="index.jsp" <% User user = (User) session.getAttribute("user");
-            Users users = userDAO.getUsers();
-            users.remove(user);
-            userDAO.save(users, filename);
-            session.setAttribute("users", users);
-        %>>YES</a>&nbsp;
-            <a class="button" href="account.jsp">NO</a>
+            <%
+                Users users = userDAO.getUsers();
+                String emailView = (String) session.getAttribute("emailView");
+                if (emailView != null) {
+                    user = users.user(emailView);
+                } else {
+                    user = (User) session.getAttribute("user");
+                }
+
+                if (user != null) {
+                    userDAO.delete(users, user);
+            %>
+            <h2><%= user.getName()%> record has been deleted!</h2>
+            <%}%>
+            <% session.invalidate();%>
+            <% if (emailView != null) { %>
+            <p class="message">You have deleted the account <a href="admin1.jsp">here </a> to go back home</p> 
+            <%} else { %>
+            <p class="message">You have deleted your account <a href="index.jsp">here </a> to go back home</p>
+            <%}%>
+           
         </li>
-        
+
 
 
     </div>

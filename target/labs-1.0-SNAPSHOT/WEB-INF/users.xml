@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <users>
     <user>
-        <ID>608493</ID>
-        <name>Alice Ming</name>
-        <email>alice.ma@example.com</email>
-        <password>Helloworld222</password>
-        <DOB>03-03-0003</DOB>
+        <ID>448</ID>
+        <name>killerbee</name>
+        <email>killer.bee@example.com</email>
+        <password>Killerbee123</password>
+        <DOB>2022-12-14</DOB>
     </user>
 </users>

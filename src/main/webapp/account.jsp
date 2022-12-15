@@ -24,14 +24,40 @@
         <jsp:useBean id="userDAO" class="com.model.dao.UserDAO" scope="application">
             <jsp:setProperty name="userDAO" property="fileName" value="<%=filename%>"/>
         </jsp:useBean>
+        <%
+        String submitted = request.getParameter("submitted");
+            String emailView = request.getParameter("emailView");
+            Users users = userDAO.getUsers();
+            
 
+            if (emailView != null) {
+                user = users.user(emailView);
+                session.setAttribute("emailView", emailView);
+            } else {
+                user = (User) session.getAttribute("user");
+            }
+
+            if (submitted != null && submitted.equals("submitted")) {
+                int ID = Integer.parseInt(request.getParameter("ID"));
+                String name = request.getParameter("name");
+                String email = request.getParameter("email");
+                String password = request.getParameter("password");
+                String dob = request.getParameter("dob");
+                emailView = (String)session.getAttribute("emailView");
+                if(emailView != null)
+                    user = users.user(emailView);
+                user.update(ID, name, email, password, dob);
+                userDAO.update(users, user);
+                session.setAttribute("user", user);
+            }
+        %>
         <div>
             <nav>
                 <!-- <h1 class="homepage" style="text-align: left">Home page</h1> -->
                 <div class="container-fluid">
                     <div class="navbar-header navbar-left" style="text-align: center">
                         <li>
-                            <%  String emailView = request.getParameter("email"); %>
+                            
                             <% if (emailView != null) { %>
                             <a class="button" href="index.jsp">Home</a> 
                             <%} else { %>
@@ -44,29 +70,7 @@
                 </div>
             </nav>
         </div>
-        <%
-            String submitted = request.getParameter("submitted");
 
-            Users users = userDAO.getUsers();
-
-            if (emailView != null) {
-                user = users.user(emailView);
-            } else {
-                user = (User) session.getAttribute("user");
-            }
-
-            if (submitted != null && submitted.equals("submitted")) {
-                int ID = Integer.parseInt(request.getParameter("ID"));
-                String name = request.getParameter("name");
-                String email = request.getParameter("email");
-                String password = request.getParameter("password");
-                String dob = request.getParameter("dob");
-
-                user.update(ID, name, email, password, dob);
-                userDAO.update(users, user);
-                session.setAttribute("user", user);
-            }
-        %>
         <div style="margin: auto;">
             <form method="POST" action="account.jsp">
                 <table class="table">
@@ -82,24 +86,9 @@
 
                         </td>
                         <td>
-                    <li>
-
-                        <% if (emailView != null) { %>
-                        <a class="button" href="admin1.jsp"
-                           <% User user = users.user(emailView);
-                               users = userDAO.getUsers();
-                               users.remove(user);
-                               userDAO.save(users, filename);
-                               session.setAttribute("users", users);
-                           %>>Delete</a>&nbsp;
-                        <input class="button" style="margin: 5%" type="submit" value="Update" /> 
-                        <%} else { %>
-                        <input class="button" style="margin: 5%" type="submit" value="Update" /> 
-                        <a class="button" style="margin: 5%" href="delete.jsp">Delete My Account</a>
-                        <%}%>
-                    </li>
-
-                    </td>
+                            <input class="button" type="submit" value="Update" /> 
+                            <a class="button" href="delete.jsp">Delete</a>
+                        </td>
                     </tr>
                 </table>
             </form>

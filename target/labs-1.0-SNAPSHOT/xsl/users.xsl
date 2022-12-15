@@ -36,7 +36,7 @@
             </td>
             <td>
                 <xsl:variable name="emailurl" select="email"></xsl:variable>
-                <a href="http://localhost:8080/labs/account.jsp?email={$emailurl}">
+                <a href="http://localhost:8080/labs/account.jsp?emailView={$emailurl}">
                     <xsl:value-of select="email"/>
                 </a>
             </td>

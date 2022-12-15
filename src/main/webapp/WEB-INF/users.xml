@@ -8,6 +8,6 @@ xsi:schemaLocation="http://www.xmllabs.com/labs users.xsd"> -->
         <name>Alice Ming</name>
         <email>alice.ma@example.com</email>
         <password>Helloworld222</password>
-        <DOB>03-03-0003</DOB>
+        <DOB>2000-20-20</DOB>
     </user>
 </users>
